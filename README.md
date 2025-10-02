@@ -116,21 +116,33 @@ make -j$(nproc)
 
 ## SonarQube Analysis
 
-### Local SonarQube Server
+### SonarCloud Automatic Analysis (Recommended)
+SonarCloud can automatically analyze your C++ code without requiring build compilation:
+
 ```bash
-# Start SonarQube server (if running locally)
-# Then run analysis
-./analyze.sh
+# For SonarCloud automatic analysis, simply push to GitHub
+# SonarCloud will automatically detect and analyze your code
+git push origin main
 ```
 
-### SonarCloud Analysis
+**Configuration files:**
+- `sonar-project.properties` - Simplified for automatic analysis
+- `.sonarcloud.properties` - SonarCloud-specific settings
+
+### SonarCloud Manual Analysis
 ```bash
 # Set environment variables
 export SONAR_HOST_URL=https://sonarcloud.io
 export SONAR_TOKEN=your_sonarcloud_token
 
-# Update .sonarcloud.properties with your organization
-# Then run analysis
+# Run manual analysis (uses sonar-project-manual.properties)
+./analyze.sh
+```
+
+### Local SonarQube Server
+```bash
+# Start SonarQube server (if running locally)
+# Then run analysis (uses sonar-project-manual.properties)
 ./analyze.sh
 ```
 

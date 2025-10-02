@@ -100,9 +100,24 @@ run_analysis() {
         ANALYSIS_PARAMS="$ANALYSIS_PARAMS -Dsonar.host.url=$SONAR_HOST_URL"
     fi
     
-    # Add build wrapper output if available
-    if [ -d "$BUILD_WRAPPER_OUT_DIR" ]; then
-        ANALYSIS_PARAMS="$ANALYSIS_PARAMS -Dsonar.cfamily.build-wrapper-output=$BUILD_WRAPPER_OUT_DIR"
+    # Choose configuration file based on analysis type
+    if [ "$SONAR_HOST_URL" = "https://sonarcloud.io" ]; then
+        echo -e "${YELLOW}Using SonarCloud automatic analysis configuration${NC}"
+        # SonarCloud will use automatic analysis - no build wrapper needed
+        if [ -f ".sonarcloud.properties" ]; then
+            ANALYSIS_PARAMS="$ANALYSIS_PARAMS -Dproject.settings=.sonarcloud.properties"
+        fi
+    else
+        echo -e "${YELLOW}Using manual analysis configuration${NC}"
+        # Use manual configuration for local SonarQube
+        if [ -f "sonar-project-manual.properties" ]; then
+            ANALYSIS_PARAMS="$ANALYSIS_PARAMS -Dproject.settings=sonar-project-manual.properties"
+        fi
+        
+        # Add build wrapper output if available
+        if [ -d "$BUILD_WRAPPER_OUT_DIR" ]; then
+            ANALYSIS_PARAMS="$ANALYSIS_PARAMS -Dsonar.cfamily.build-wrapper-output=$BUILD_WRAPPER_OUT_DIR"
+        fi
     fi
     
     # Run the analysis
