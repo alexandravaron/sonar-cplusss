@@ -1,0 +1,49 @@
+# Build directories
+build/
+cmake-build-*/
+build-wrapper-output/
+
+# Compiled binaries
+*.exe
+*.out
+sql_injection_demo
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# SonarQube files
+.sonar/
+.scannerwork/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Coverage files
+*.gcov
+*.gcda
+*.gcno
+coverage/
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Compilation database
+compile_commands.json
